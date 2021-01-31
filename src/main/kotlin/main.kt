@@ -21,7 +21,7 @@ val Directions = listOf(UP, LEFT, DOWN, RIGHT)
 fun main() {
     onStart {
         val arena = Canvas(TRUE_WIDTH * 2, TRUE_HEIGHT, BACKGROUND_COLOR)
-        var game = Game(Player(Position(0, 0)), getMaze("First"))
+        var game = Game(Player(Position(0, 0)), getMaze("First"), getEnemies())
 
         arena.onKeyPressed { ke ->
             if(ke.char in Directions){
@@ -30,6 +30,8 @@ fun main() {
         }
 
         arena.onTimeProgress(10){
+            game = game.copy(enemies = game.enemies.map { it.move() })
+            game.enemies.forEach { game.player.collidesWithEnemy(it) }
             arena.drawGame(game)
         }
     }

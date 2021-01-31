@@ -17,6 +17,7 @@ fun Canvas.drawBlock(block: Block){
 }
 
 fun Position.parallel() = copy(x = x + GRID_WIDTH)
+fun Position.trueParallel() = copy(x = x + GRID_WIDTH * TILE_SIDE)
 fun Block.parallel() = copy(position = position.parallel())
 
 fun Canvas.drawMaze(maze: Maze){
